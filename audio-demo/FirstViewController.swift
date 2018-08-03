@@ -14,6 +14,23 @@ import MobileCoreServices
 
 class FirstViewController: UIViewController {
     var audioPlayer = AVAudioPlayer()
+    @IBAction func onClickPlay(_ sender: Any) {
+        var path = NSHomeDirectory() + "/Documents/record-1"
+        print(path)
+        var url = NSURL.fileURL(withPath: path)
+        let session = AVAudioSession.sharedInstance()
+        try! session.setCategory(AVAudioSessionCategoryPlayback)
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOf: url)
+            audioPlayer.volume = 1
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+            print(audioPlayer)
+            print("hi")
+        } catch let error {
+            print(error)
+        }
+    }
     lazy var audioRecorder: AVAudioRecorder = {
         var path = NSHomeDirectory() + "/Documents/record-1"
         print(path)
@@ -35,23 +52,6 @@ class FirstViewController: UIViewController {
 
     @IBOutlet weak var button1: UIButton!
 
-    @IBAction func onClickPlay(_ sender: Any) {
-        var path = NSHomeDirectory() + "/Documents/record-1"
-        print(path)
-        var url = NSURL.fileURL(withPath: path)
-        let session = AVAudioSession.sharedInstance()
-        try! session.setCategory(AVAudioSessionCategoryPlayback)
-        do {
-            try audioPlayer = AVAudioPlayer(contentsOf: url)
-            audioPlayer.volume = 1
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-            print(audioPlayer)
-            print("hi")
-        } catch let error {
-            print(error)
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
